@@ -657,6 +657,138 @@ body.performance-lite .perf-toggle{background:#efe5fa}
   .toggle-indicator{margin:0!important}
 }
 
+
+/* ===== MOBILE FIX FINAL — layout realmente adaptado ===== */
+@media (max-width:700px){
+  /* Evita renderização atrasada/estranha no celular. */
+  main>section{content-visibility:visible!important;contain:none!important}
+
+  /* Roteiro: cards grandes e roláveis, em vez de 5 colunas esmagadas. */
+  .site-roadmap{padding:22px 0 30px!important}
+  .roadmap-intro{gap:7px!important;margin-bottom:14px!important}
+  .roadmap-intro strong{font-size:1.02rem!important;line-height:1.35!important}
+  .roadmap-grid{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:12px!important;
+    overflow-x:auto!important;
+    padding:2px 2px 10px!important;
+    scroll-snap-type:x mandatory!important;
+    overscroll-behavior-inline:contain;
+  }
+  .roadmap-step{
+    flex:0 0 76vw!important;
+    width:76vw!important;
+    min-width:250px!important;
+    max-width:290px!important;
+    min-height:132px!important;
+    padding:20px!important;
+    border-radius:22px!important;
+    scroll-snap-align:center!important;
+  }
+  .roadmap-step:last-child{grid-column:auto!important}
+  .roadmap-step b{font-size:.78rem!important;margin-bottom:10px!important}
+  .roadmap-step span{font-size:1.28rem!important;line-height:1.1!important}
+  .roadmap-step small{font-size:.96rem!important;line-height:1.4!important;margin-top:8px!important}
+
+  /* Estação: não permite que o conteúdo interno defina uma largura minúscula. */
+  .station-card,.micro-layout,.micro-controls,.micro-stage,.creator-layout,.mixer-grid,.environment-layout{
+    width:100%!important;min-width:0!important;max-width:100%!important;
+  }
+
+  /* Microscópio: área de observação sempre ocupa a largura disponível. */
+  .micro-layout{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:18px!important;
+  }
+  .micro-stage{
+    order:1!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:360px!important;
+    height:360px!important;
+    display:block!important;
+    position:relative!important;
+    overflow:hidden!important;
+    border-radius:24px!important;
+    padding:0!important;
+  }
+  .micro-stage::before{inset:10px!important;border-radius:19px!important}
+  .micro-lens{
+    width:224px!important;
+    height:224px!important;
+    max-width:none!important;
+    aspect-ratio:1/1!important;
+    left:50%;top:50%;
+  }
+  .micro-stage-label{
+    top:18px!important;left:18px!important;right:18px!important;
+    max-width:calc(100% - 36px)!important;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .micro-help{
+    left:18px!important;right:18px!important;bottom:14px!important;
+    width:auto!important;transform:none!important;
+    font-size:.74rem!important;line-height:1.35!important;
+    padding:7px 10px!important;border-radius:12px!important;
+    background:rgba(32,20,40,.62)!important;color:#f0e5f5!important;
+  }
+  .micro-controls{order:2!important;width:100%!important;min-width:0!important}
+
+  /* Lâminas: 2x2, visíveis sem precisar descobrir rolagem horizontal. */
+  .micro-samples{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+    overflow:visible!important;
+    padding:0!important;
+    margin:0 0 12px!important;
+  }
+  .micro-choice{
+    width:100%!important;min-width:0!important;max-width:none!important;
+    flex:none!important;min-height:50px!important;padding:10px 8px!important;
+    white-space:normal!important;
+  }
+  .micro-control-grid{display:grid!important;grid-template-columns:1fr!important;gap:11px!important}
+  .micro-control-grid .control-box{width:100%!important;min-width:0!important;padding:14px!important}
+  .micro-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
+  .micro-readout{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+  .micro-readout span{display:block!important;width:100%!important;text-align:center!important;padding:9px!important}
+  .micro-info{width:100%!important;min-height:0!important;padding:13px!important;font-size:.9rem!important}
+
+  /* Navegação das ferramentas: cartões menores, mas ainda tocáveis. */
+  .station-tool-nav{gap:8px!important}
+  .tool-nav-btn{min-width:165px!important;width:auto!important;padding:10px!important}
+  .tool-nav-btn .tool-icon{width:36px!important;height:36px!important;flex-basis:36px!important}
+
+  /* Ações da flor: no celular ficam abaixo da flor e legíveis. */
+  .flower-stage-row{display:grid!important;grid-template-columns:1fr!important}
+  .flower-side-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
+  .flower-side-heading{text-align:left!important}
+  .flower-action-btn{
+    min-height:62px!important;
+    display:grid!important;
+    grid-template-columns:42px 1fr auto!important;
+    text-align:left!important;
+    padding:10px 12px!important;
+  }
+  .flower-action-copy small{display:block!important}
+
+  /* Controles horizontais realmente mantêm largura própria. */
+  .pigment-buttons .pigment-btn,.ph-presets button,.quiz-tabs .quiz-tab{
+    width:auto!important;min-width:max-content!important;flex:0 0 auto!important;
+  }
+}
+@media (max-width:390px){
+  .roadmap-step{flex-basis:82vw!important;width:82vw!important;min-width:230px!important}
+  .micro-lens{width:205px!important;height:205px!important}
+  .micro-stage{height:335px!important;min-height:335px!important}
+  .brand-text{font-size:.98rem!important}
+  #perfToggle{padding:0 9px!important;font-size:.88rem!important}
+}
+
 </style>
 </head>
 <body>
