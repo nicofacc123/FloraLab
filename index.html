@@ -540,86 +540,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   button:active,.btn:active,.small-btn:active,.soft-btn:active,.tool-nav-btn:active,.pigment-btn:active,.flower-action-btn:active{transform:scale(.98) !important}
 }
 
-
-/* ===== MODO LEVE / CELULAR / PC FRACO ===== */
-.perf-toggle{
-  min-height:42px;border:1px solid rgba(84,33,117,.13);background:#fff;
-  color:var(--purple);border-radius:13px;padding:0 13px;display:inline-flex;
-  align-items:center;justify-content:center;gap:7px;font-weight:900;cursor:pointer;
-  box-shadow:0 5px 14px rgba(84,33,117,.07);transition:.18s ease;
-}
-.perf-toggle:hover{transform:translateY(-1px);background:#faf4ff}
-.perf-toggle.active{background:#f2e7ff;border-color:rgba(168,85,247,.3);color:#6d2aa0}
-.mobile-perf{width:100%;display:none;min-height:48px;margin-bottom:4px}
-body.performance-lite{
-  --shadow:0 2px 10px rgba(84,33,117,.06);
-  --shadow-soft:0 1px 6px rgba(84,33,117,.05);
-  background:#fffafd;
-}
-body.performance-lite::before{display:none!important}
-body.performance-lite .topbar,
-body.performance-lite .glass,
-body.performance-lite .station-tool-nav{
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-}
-body.performance-lite .halo,
-body.performance-lite .petal-burst,
-body.performance-lite .pollinator,
-body.performance-lite .float-card,
-body.performance-lite .hero-float,
-body.performance-lite .bubble:not(.bubble-static){
-  animation:none!important;
-}
-body.performance-lite .halo{
-  border-radius:50%!important;
-  box-shadow:none!important;
-  background:linear-gradient(145deg,#fdeaf4,#eee7fb)!important;
-}
-body.performance-lite .glass,
-body.performance-lite .panel,
-body.performance-lite .station-card,
-body.performance-lite .interaction-card,
-body.performance-lite .hero-showcase,
-body.performance-lite .flower-main-display{
-  box-shadow:none!important;
-}
-body.performance-lite .reveal{
-  opacity:1!important;transform:none!important;transition:none!important;
-}
-body.performance-lite *{
-  scroll-behavior:auto!important;
-}
-body.performance-lite .btn,
-body.performance-lite .small-btn,
-body.performance-lite .tool-nav-btn,
-body.performance-lite .flower-action-btn,
-body.performance-lite .substance,
-body.performance-lite .quiz-option,
-body.performance-lite .sample-card{
-  transition:none!important;
-}
-body.performance-lite .flower-visual.breezy .petal,
-body.performance-lite .custom-flower.breeze{
-  animation:none!important;
-}
-body.performance-lite .micro-reticle,
-body.performance-lite .micro-hotspot,
-body.performance-lite .micro-specimen{
-  filter:none!important;
-}
-body.performance-lite .hero-visual{min-height:470px}
-body.performance-lite .hero-showcase{background:#fffafd!important}
-body.performance-lite .station-section,
-body.performance-lite .interaction-section{
-  background:#fffafd!important;
-}
-body.performance-lite .perf-toggle{background:#efe5fa}
-@media(max-width:980px){
-  #perfToggle span{display:none}
-  #perfToggle{width:44px;padding:0}
-  .mobile-perf{display:flex}
-}
-
 </style>
 </head>
 <body>
@@ -631,9 +551,9 @@ body.performance-lite .perf-toggle{background:#efe5fa}
 <div class="brand-text">Flora<span>Lab</span></div>
 </a>
 <div class="nav-links"><a href="#descubra">Explorar</a><a href="#laboratorio">Laboratórios</a><a href="#interacoes">Atividades</a><a href="#experimento">Experimento</a><a href="#quiz">Quiz</a></div>
-<div class="nav-actions"><button class="perf-toggle" id="perfToggle" type="button" aria-pressed="false" title="Ativar modo leve">⚡ <span>Leve</span></button><button class="menu-btn" id="menuBtn">☰</button></div>
+<div class="nav-actions"><button class="menu-btn" id="menuBtn">☰</button></div>
 </nav>
-<div class="mobile-menu" id="mobileMenu"><button class="perf-toggle mobile-perf" id="perfToggleMobile" type="button" aria-pressed="false">⚡ Ativar modo leve</button><a href="#descubra">Explorar</a><a href="#laboratorio">Laboratórios</a><a href="#interacoes">Atividades</a><a href="#experimento">Experimento</a><a href="#quiz">Quiz</a></div>
+<div class="mobile-menu" id="mobileMenu"><a href="#descubra">Explorar</a><a href="#laboratorio">Laboratórios</a><a href="#interacoes">Atividades</a><a href="#experimento">Experimento</a><a href="#quiz">Quiz</a></div>
 </div>
 </header>
 <main>
@@ -1394,63 +1314,6 @@ const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isInte
       },80);
     }
   }));
-})();
-</script>
-
-
-<script>
-(function(){
-  const root = document.body;
-  const desktopBtn = document.getElementById('perfToggle');
-  const mobileBtn = document.getElementById('perfToggleMobile');
-  const key = 'floralab-performance-mode';
-
-  function deviceLooksWeak(){
-    const smallScreen = window.matchMedia('(max-width: 700px)').matches;
-    const fewCores = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4;
-    const lowMemory = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4;
-    const saveData = !!(navigator.connection && navigator.connection.saveData);
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    return smallScreen || fewCores || lowMemory || saveData || reducedMotion;
-  }
-
-  function updateButtons(isLite){
-    [desktopBtn,mobileBtn].filter(Boolean).forEach(btn=>{
-      btn.classList.toggle('active',isLite);
-      btn.setAttribute('aria-pressed', String(isLite));
-    });
-    if(desktopBtn){
-      desktopBtn.title = isLite ? 'Voltar ao modo completo' : 'Ativar modo leve';
-      desktopBtn.innerHTML = isLite ? '🌸 <span>Completo</span>' : '⚡ <span>Leve</span>';
-    }
-    if(mobileBtn){
-      mobileBtn.textContent = isLite ? '🌸 Usar modo completo' : '⚡ Ativar modo leve';
-    }
-  }
-
-  function setLite(isLite, save=true){
-    root.classList.toggle('performance-lite',isLite);
-    updateButtons(isLite);
-    if(save){
-      try{ localStorage.setItem(key,isLite?'lite':'full'); }catch(e){}
-    }
-    // Evita timers/efeitos contínuos pesados quando entra no modo leve.
-    if(isLite){
-      document.querySelector('.flower-visual')?.classList.remove('breezy');
-      document.querySelector('.custom-flower')?.classList.remove('breeze');
-      document.querySelectorAll('.petal-burst,.pollinator').forEach(el=>el.remove());
-    }
-  }
-
-  let saved=null;
-  try{ saved=localStorage.getItem(key); }catch(e){}
-  if(saved==='lite') setLite(true,false);
-  else if(saved==='full') setLite(false,false);
-  else setLite(deviceLooksWeak(),false);
-
-  function toggle(){ setLite(!root.classList.contains('performance-lite'),true); }
-  desktopBtn?.addEventListener('click',toggle);
-  mobileBtn?.addEventListener('click',toggle);
 })();
 </script>
 
